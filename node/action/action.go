@@ -9,18 +9,18 @@ import (
 
 type Action struct {
 	common.Node
-	runFunc func(ctx context.Context) behavior.Status
+	ActFunc func(ctx context.Context) behavior.Status
 }
 
-func NewAction(runFunc func(ctx context.Context) behavior.Status) *Action {
+func NewAction(actFunc func(ctx context.Context) behavior.Status) *Action {
 	return &Action{
-		runFunc: runFunc,
+		ActFunc: actFunc,
 	}
 }
 
 func (a *Action) Run(ctx context.Context) behavior.Status {
-	if a.runFunc == nil {
+	if a.ActFunc == nil {
 		return behavior.StatusSuccess
 	}
-	return a.runFunc(ctx)
+	return a.ActFunc(ctx)
 }
