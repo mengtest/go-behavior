@@ -37,18 +37,21 @@ type Condition struct {
 	//expect           int
 	//ConditionCompare ConditionCompare
 	common.Node
-	evaluate func(ctx context.Context) bool
+	EvaluateFunc func(ctx context.Context) bool
 }
 
 func NewCondition(evaluateFunc func(ctx context.Context) bool) behavior.Conditioner {
 	cond := &Condition{
-		evaluate: evaluateFunc,
+		EvaluateFunc: evaluateFunc,
 	}
 	return cond
 }
 
 func (c *Condition) Run(ctx context.Context) behavior.Status {
-	if c.evaluate(ctx) {
+	if c.EvaluateFunc == nil {
+		return behavior.StatusSuccess
+	}
+	if c.EvaluateFunc(ctx) {
 		return behavior.StatusSuccess
 	} else {
 		return behavior.StatusFailure
