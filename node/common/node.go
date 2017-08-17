@@ -20,9 +20,12 @@ func NewNoder(id int) behavior.Noder {
 		Children: make([]behavior.Noder, 0),
 	}
 }
+func (this *Node) Implement() behavior.Noder {
+	panic("not imp")
+}
 
 func (this *Node) Run(ctx context.Context) behavior.Status {
-	panic("Not imp")
+	panic("not imp")
 }
 
 func (this *Node) SetID(id int) {
@@ -49,8 +52,12 @@ func (this *Node) GetChildren() []behavior.Noder {
 	return this.Children
 }
 
-func (this *Node) Implement() behavior.Noder {
-	n := new(Node)
-	*n = *this
-	return n
+func (this *Node) SetChildAtIndex(i int, child behavior.Noder) {
+	this.Children[i] = child
+}
+func (this *Node) GetChildrenCount() int {
+	return len(this.Children)
+}
+func (this *Node) GetChildByIndex(index int) behavior.Noder {
+	return this.Children[index]
 }

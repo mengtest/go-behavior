@@ -24,3 +24,11 @@ func (a *Action) Run(ctx context.Context) behavior.Status {
 	}
 	return a.ActFunc(ctx)
 }
+
+func (this *Action) SetChildren(children ...behavior.Noder) {
+	panic("go-behavior: action node should not have child.")
+}
+
+func (this *Action) SetChildAtIndex(i int, child behavior.Noder) {
+	panic("go-behavior: action node should not have child.")
+}

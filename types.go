@@ -15,8 +15,8 @@ type Noder interface {
 	GetID() int
 	GetParent() Noder
 	GetChildren() []Noder
-	// GetChildrenCount() int
-	// GetChildByIndex(index int) Noder
+	GetChildrenCount() int
+	GetChildByIndex(index int) Noder
 	// GetChildByID(id int) Noder
 	// String() string
 	// Clear()
@@ -28,6 +28,7 @@ type Noder interface {
 	// IsManagingChildrenAsSubTrees() bool
 	SetID(id int)
 	SetParent(n Noder)
+	SetChildAtIndex(i int, child Noder)
 	SetChildren(children ...Noder)
 	Implement() Noder
 }
