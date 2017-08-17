@@ -11,4 +11,7 @@ type Composite struct {
 
 func (c *Composite) Push(node ...behavior.Noder) {
 	c.Node.Children = append(c.Node.Children, node...)
+	for _, n := range node {
+		n.SetParent(n)
+	}
 }

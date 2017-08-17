@@ -26,7 +26,10 @@ type Noder interface {
 	// CheckEvents(eventName string, params map[int]interface{}) bool
 	// Attach(attachment Noder, isPrecondition, isEffector, isTransition bool)
 	// IsManagingChildrenAsSubTrees() bool
+	SetID(id int)
 	SetParent(n Noder)
+	SetChildren(children ...Noder)
+	Implement() Noder
 }
 
 // 顺序执行所有子节点返回成功，如果某个子节点失败返回失败。

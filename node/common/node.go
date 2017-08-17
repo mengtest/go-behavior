@@ -25,6 +25,10 @@ func (this *Node) Run(ctx context.Context) behavior.Status {
 	panic("Not imp")
 }
 
+func (this *Node) SetID(id int) {
+	this.ID = id
+}
+
 func (this *Node) GetID() int {
 	return this.ID
 }
@@ -37,6 +41,16 @@ func (this *Node) GetParent() behavior.Noder {
 	return this.Parent
 }
 
+func (this *Node) SetChildren(children ...behavior.Noder) {
+	this.Children = children
+}
+
 func (this *Node) GetChildren() []behavior.Noder {
 	return this.Children
+}
+
+func (this *Node) Implement() behavior.Noder {
+	n := new(Node)
+	*n = *this
+	return n
 }
