@@ -12,12 +12,12 @@ import (
 
 type Noder interface {
 	Run(ctx context.Context) Status
-	// GetID() int
+	GetID() int
+	GetParent() Noder
 	GetChildren() []Noder
 	// GetChildrenCount() int
 	// GetChildByIndex(index int) Noder
 	// GetChildByID(id int) Noder
-	// GetParent() Noder
 	// String() string
 	// Clear()
 	// // 检测先决条件
@@ -26,6 +26,7 @@ type Noder interface {
 	// CheckEvents(eventName string, params map[int]interface{}) bool
 	// Attach(attachment Noder, isPrecondition, isEffector, isTransition bool)
 	// IsManagingChildrenAsSubTrees() bool
+	SetParent(n Noder)
 }
 
 // 顺序执行所有子节点返回成功，如果某个子节点失败返回失败。
@@ -61,5 +62,16 @@ type Actioner interface {
 }
 
 // 行为树
-type BTree interface {
+type Tree interface {
+	GetID() int
+	Run(ctx context.Context) Status
+}
+
+// 附件
+type Attachment interface {
+	Run(ctx context.Context) bool
+}
+
+type ConditionEvaluater interface {
+	Evaluate(ctx context.Context) bool
 }
