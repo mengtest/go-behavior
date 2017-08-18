@@ -30,7 +30,6 @@ type Noder interface {
 	SetParent(n Noder)
 	SetChildAtIndex(i int, child Noder)
 	SetChildren(children ...Noder)
-	Implement() Noder
 }
 
 // 顺序执行所有子节点返回成功，如果某个子节点失败返回失败。

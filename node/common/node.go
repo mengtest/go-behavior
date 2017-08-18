@@ -20,9 +20,6 @@ func NewNoder(id int) behavior.Noder {
 		Children: make([]behavior.Noder, 0),
 	}
 }
-func (this *Node) Implement() behavior.Noder {
-	panic("not imp")
-}
 
 func (this *Node) Run(ctx context.Context) behavior.Status {
 	panic("not imp")
