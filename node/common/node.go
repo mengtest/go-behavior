@@ -43,6 +43,9 @@ func (this *Node) GetParent() behavior.Noder {
 
 func (this *Node) SetChildren(children ...behavior.Noder) {
 	this.Children = children
+	for _, child := range this.Children {
+		child.SetParent(this)
+	}
 }
 
 func (this *Node) GetChildren() []behavior.Noder {
@@ -50,6 +53,7 @@ func (this *Node) GetChildren() []behavior.Noder {
 }
 
 func (this *Node) SetChildAtIndex(i int, child behavior.Noder) {
+	child.SetParent(this)
 	this.Children[i] = child
 }
 func (this *Node) GetChildrenCount() int {
