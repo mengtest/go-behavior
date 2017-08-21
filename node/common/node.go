@@ -44,7 +44,9 @@ func (this *Node) GetParent() behavior.Noder {
 func (this *Node) SetChildren(children ...behavior.Noder) {
 	this.Children = children
 	for _, child := range this.Children {
-		child.SetParent(this)
+		if child != nil {
+			child.SetParent(this)
+		}
 	}
 }
 
