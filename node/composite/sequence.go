@@ -2,6 +2,7 @@ package composite
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/szyhf/go-behavior"
 )
@@ -45,23 +46,31 @@ func (s *Sequence) Run(ctx context.Context) behavior.Status {
 }
 
 func runSequenceWithAbort(s *Sequence, ctx context.Context) behavior.Status {
-	for _, child := range s.Node.GetChildren() {
-		if s.abortFunc(ctx) {
-			return behavior.StatusFailure
-		}
-		if status := child.Run(ctx); status != behavior.StatusSuccess {
-			// 待定：是否缓存Sequence为Running的Node。
-			return status
+	for idx, child := range s.Node.GetChildren() {
+		if child != nil {
+			if s.abortFunc(ctx) {
+				return behavior.StatusFailure
+			}
+			if status := child.Run(ctx); status != behavior.StatusSuccess {
+				// 待定：是否缓存Sequence为Running的Node。
+				return status
+			}
+		} else {
+			println(fmt.Sprintf("child of id=%d at idx=%d is nil", s.GetID(), idx))
 		}
 	}
 	return behavior.StatusSuccess
 }
 
 func runSequenceWithoutAbort(s *Sequence, ctx context.Context) behavior.Status {
-	for _, child := range s.Node.GetChildren() {
-		if status := child.Run(ctx); status != behavior.StatusSuccess {
-			// 待定：是否缓存Sequence为Running的Node。
-			return status
+	for idx, child := range s.Node.GetChildren() {
+		if child != nil {
+			if status := child.Run(ctx); status != behavior.StatusSuccess {
+				// 待定：是否缓存Sequence为Running的Node。
+				return status
+			}
+		} else {
+			println(fmt.Sprintf("child of id=%d at idx=%d is nil", s.GetID(), idx))
 		}
 	}
 	return behavior.StatusSuccess
