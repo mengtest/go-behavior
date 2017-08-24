@@ -16,6 +16,10 @@ type Not struct {
 }
 
 func (n *Not) Run(ctx context.Context) behavior.Status {
+	child := n.Decorator.GetChild()
+	if child == nil {
+		panic("Child of NotNode should exist.")
+	}
 	switch s := n.Decorator.GetChild().Run(ctx); s {
 	case behavior.StatusSuccess:
 		return behavior.StatusFailure
