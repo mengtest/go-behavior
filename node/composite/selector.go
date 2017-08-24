@@ -51,7 +51,7 @@ func runSelectorWithAbort(s *Selector, ctx context.Context) behavior.Status {
 			return status
 		}
 	}
-	return behavior.StatusSuccess
+	return behavior.StatusFailure
 }
 
 func runSelectorWithoutAbort(s *Selector, ctx context.Context) behavior.Status {
@@ -61,5 +61,5 @@ func runSelectorWithoutAbort(s *Selector, ctx context.Context) behavior.Status {
 			return status
 		}
 	}
-	return behavior.StatusSuccess
+	return behavior.StatusFailure
 }
