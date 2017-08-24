@@ -46,8 +46,8 @@ func runSelectorWithAbort(s *Selector, ctx context.Context) behavior.Status {
 		if s.abortFunc(ctx) {
 			return behavior.StatusFailure
 		}
-		if status := child.Run(ctx); status != behavior.StatusSuccess {
-			// 待定：是否缓存Sequence为Running的Node。
+		if status := child.Run(ctx); status != behavior.StatusFailure {
+			// 待定：是否缓存为Running的Node。
 			return status
 		}
 	}
@@ -56,8 +56,8 @@ func runSelectorWithAbort(s *Selector, ctx context.Context) behavior.Status {
 
 func runSelectorWithoutAbort(s *Selector, ctx context.Context) behavior.Status {
 	for _, child := range s.Node.GetChildren() {
-		if status := child.Run(ctx); status != behavior.StatusSuccess {
-			// 待定：是否缓存Sequence为Running的Node。
+		if status := child.Run(ctx); status != behavior.StatusFailure {
+			// 待定：是否缓存为Running的Node。
 			return status
 		}
 	}
