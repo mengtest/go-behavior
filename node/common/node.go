@@ -12,6 +12,7 @@ type Node struct {
 	Children []behavior.Noder
 	//BeforeUnionType
 	BeforeAttachments []behavior.Attachment
+	AfterAttachments  []behavior.Attachment
 }
 
 func NewNoder(id int) behavior.Noder {
@@ -63,4 +64,22 @@ func (this *Node) GetChildrenCount() int {
 }
 func (this *Node) GetChildByIndex(index int) behavior.Noder {
 	return this.Children[index]
+}
+
+func (this *Node) RunBeforeAttachments(ctx context.Context) behavior.Status {
+	for _, bef := range this.BeforeAttachments {
+		if status := bef.Run(ctx); status != behavior.StatusSuccess {
+			return status
+		}
+	}
+	return behavior.StatusSuccess
+}
+
+func (this *Node) RunAfterAttachments(ctx context.Context) behavior.Status {
+	for _, bef := range this.AfterAttachments {
+		if status := bef.Run(ctx); status != behavior.StatusSuccess {
+			return status
+		}
+	}
+	return behavior.StatusSuccess
 }

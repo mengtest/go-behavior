@@ -48,14 +48,20 @@ func NewCondition(evaluateFunc func(ctx context.Context) bool) behavior.Conditio
 }
 
 func (c *Condition) Run(ctx context.Context) behavior.Status {
+	if status := c.RunBeforeAttachments(ctx); status != behavior.StatusSuccess {
+		return status
+	}
 	if c.EvaluateFunc == nil {
 		return behavior.StatusSuccess
 	}
-	if c.EvaluateFunc(ctx) {
-		return behavior.StatusSuccess
-	} else {
+	if !c.EvaluateFunc(ctx) {
 		return behavior.StatusFailure
 	}
+	if status := c.RunAfterAttachments(ctx); status != behavior.StatusSuccess {
+		return status
+	}
+	return behavior.StatusSuccess
+
 }
 
 // ShouldBeNil          = assertions.ShouldBeNil

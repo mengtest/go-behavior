@@ -19,10 +19,19 @@ func NewAction(actFunc func(ctx context.Context) behavior.Status) *Action {
 }
 
 func (a *Action) Run(ctx context.Context) behavior.Status {
+	if status := a.RunBeforeAttachments(ctx); status != behavior.StatusSuccess {
+		return status
+	}
 	if a.ActFunc == nil {
 		return behavior.StatusSuccess
 	}
-	return a.ActFunc(ctx)
+	if status := a.ActFunc(ctx); status != behavior.StatusSuccess {
+		return status
+	}
+	if status := a.RunAfterAttachments(ctx); status != behavior.StatusSuccess {
+		return status
+	}
+	return behavior.StatusSuccess
 }
 
 func (this *Action) SetChildren(children ...behavior.Noder) {

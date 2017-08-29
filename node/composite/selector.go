@@ -38,7 +38,16 @@ func NewSelector(abortFunc func(ctx context.Context) bool) behavior.Selector {
 }
 
 func (s *Selector) Run(ctx context.Context) behavior.Status {
-	return s.runFunc(s, ctx)
+	if status := s.RunBeforeAttachments(ctx); status != behavior.StatusSuccess {
+		return status
+	}
+	if status := s.runFunc(s, ctx); status != behavior.StatusSuccess {
+		return status
+	}
+	if status := s.RunAfterAttachments(ctx); status != behavior.StatusSuccess {
+		return status
+	}
+	return behavior.StatusSuccess
 }
 
 func runSelectorWithAbort(s *Selector, ctx context.Context) behavior.Status {

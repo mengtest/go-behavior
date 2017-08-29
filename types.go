@@ -72,7 +72,7 @@ type Tree interface {
 
 // 附件
 type Attachment interface {
-	Run(ctx context.Context) bool
+	Run(ctx context.Context) Status
 }
 
 type ConditionEvaluater interface {
