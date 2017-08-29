@@ -17,8 +17,10 @@ type Node struct {
 
 func NewNoder(id int) behavior.Noder {
 	return &Node{
-		ID:       id,
-		Children: make([]behavior.Noder, 0),
+		ID:                id,
+		Children:          make([]behavior.Noder, 0),
+		BeforeAttachments: make([]behavior.Attachment, 0),
+		AfterAttachments:  make([]behavior.Attachment, 0),
 	}
 }
 
@@ -64,6 +66,30 @@ func (this *Node) GetChildrenCount() int {
 }
 func (this *Node) GetChildByIndex(index int) behavior.Noder {
 	return this.Children[index]
+}
+
+func (this *Node) GetBeforeAttachments() []behavior.Attachment {
+	return this.BeforeAttachments
+}
+
+func (this *Node) GetAfterAttachments() []behavior.Attachment {
+	return this.AfterAttachments
+}
+
+func (this *Node) SetBeforeAttachmentAtIndex(i int, atcm behavior.Attachment) {
+	this.BeforeAttachments[i] = atcm
+}
+
+func (this *Node) SetBeforeAttachments(attachments ...behavior.Attachment) {
+	this.BeforeAttachments = attachments
+}
+
+func (this *Node) SetAfterAttachmentAtIndex(i int, atcm behavior.Attachment) {
+	this.AfterAttachments[i] = atcm
+}
+
+func (this *Node) SetAfterAttachments(attachments ...behavior.Attachment) {
+	this.AfterAttachments = attachments
 }
 
 func (this *Node) RunBeforeAttachments(ctx context.Context) behavior.Status {

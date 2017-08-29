@@ -17,6 +17,8 @@ type Noder interface {
 	GetChildren() []Noder
 	GetChildrenCount() int
 	GetChildByIndex(index int) Noder
+	GetBeforeAttachments() []Attachment
+	GetAfterAttachments() []Attachment
 	// GetChildByID(id int) Noder
 	// String() string
 	// Clear()
@@ -30,6 +32,10 @@ type Noder interface {
 	SetParent(n Noder)
 	SetChildAtIndex(i int, child Noder)
 	SetChildren(children ...Noder)
+	SetBeforeAttachmentAtIndex(i int, atcm Attachment)
+	SetBeforeAttachments(attachments ...Attachment)
+	SetAfterAttachmentAtIndex(i int, atcm Attachment)
+	SetAfterAttachments(attachments ...Attachment)
 }
 
 // 顺序执行所有子节点返回成功，如果某个子节点失败返回失败。
