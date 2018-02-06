@@ -12,6 +12,6 @@ type True struct {
 	Condition
 }
 
-func Run(ctx context.Context) behavior.Status {
+func (this *True) Run(ctx context.Context) behavior.Status {
 	return behavior.StatusSuccess
 }
