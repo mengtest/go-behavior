@@ -62,6 +62,16 @@ type Selector interface {
 	Push(node ...Noder)
 }
 
+type Or interface {
+	Noder
+	Push(node ...Noder)
+}
+
+type And interface {
+	Noder
+	Push(node ...Noder)
+}
+
 // 修饰节点
 type Decorator interface {
 }
